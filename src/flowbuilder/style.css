@@ -47,3 +47,12 @@
     color: var(--color-base700);
     font-size: 12px;
 }
+
+#flowbuilder-container {
+    width: 100%;
+    height: calc(100vh - 75px); /* Navbar 높이를 제외한 전체 높이 */
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}

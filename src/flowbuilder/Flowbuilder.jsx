@@ -13,7 +13,7 @@ import ReactFlow, {
   useReactFlow,
   SelectionMode,
 } from "reactflow";
-import { v4 as uuidv4, v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
 import '../styles/styles.css';
 import "reactflow/dist/style.css";
@@ -21,11 +21,11 @@ import SelectNodeModal from "../flowbuilder/SelectNodeModal";
 import { NodeTypes, initialEdges, initialNodes } from "../flowbuilder/Utils";
 import NodeSelectTab from "../flowbuilder/NodeSelectTab";
 import useFlowBuilder from "../hooks/useFlowBuilder";
-import Navbar from "../components/Navbar";
 import SideBar from "../components/sideBar";
 import useElementSize from "../hooks/useElementSize";
 
 const Flowbuilder = () => {
+  // Flowbuilder 내부 로직은 그대로 유지
   const {
     stepActionHandle,
     stepBlankNode,
@@ -129,7 +129,7 @@ const Flowbuilder = () => {
     Object.assign(singleBlankNode, {
       type: "blank",
       label: "Blank Node",
-      id: v4(),
+      id: uuidv4(),
       position: nodePosition.position,
     });
     stepBlankNode(singleBlankNode);
@@ -150,46 +150,43 @@ const Flowbuilder = () => {
   }
 
   return (
-    <div>
-      <Navbar jsonElements={extractedJsonStructure} />
-      <div style={{ height: "calc(100vh - 75px)" }} className="flex justify-center gap-y2 bg-white w-screen">
-        <div className="bg-white" style={{ width: openSidebar && currentSideData.id ? "calc(100%-40%)" : "100%" }}>
-          <ReactFlow
-            ref={ref}
-            nodes={nodes}
-            edges={edges}
-            onEdgeUpdate={onEdgeUpdate}
-            onConnect={onConnect}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            proOptions={proOptions}
-            zoomOnScroll={false}
-            zoomOnPinch={false}
-            elementsSelectable={true}
-            onInit={setReactFlowInstance}
-            zoomOnDoubleClick={false}
-            panOnScroll
-            selectionOnDrag
-            panOnDrag={[1, 2]}
-            selectionMode={SelectionMode.Partial}
-            defaultViewport={defaultViewport}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onEdgeClick={(e, f) => { /* handle edge click */ }}
-            onNodeClick={(e, f) => handleNodeClick(e, f)}
-          >
-            <Controls showInteractive={false} position="bottom-left" />
-            <Background gap={100} color="rgb(243 244 246)" size={3} variant={BackgroundVariant.Lines} />
-            <Panel position="top-left">
-              <button onClick={() => setIsModalOpen(true)}>Add Empty Node</button>
-            </Panel>
-          </ReactFlow>
-        </div>
-        {openSidebar && currentSideData.id && <SideBar currentSideData={currentSideData} />}
-        <SelectNodeModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
-          <NodeSelectTab stepActionHandle={stepActionHandle} />
-        </SelectNodeModal>
+    <div style={{ height: "calc(100vh - 75px)" }} className="flex justify-center gap-y2 bg-white w-screen">
+      <div className="bg-white" style={{ width: openSidebar && currentSideData.id ? "calc(100%-40%)" : "100%" }}>
+        <ReactFlow
+          ref={ref}
+          nodes={nodes}
+          edges={edges}
+          onEdgeUpdate={onEdgeUpdate}
+          onConnect={onConnect}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          proOptions={proOptions}
+          zoomOnScroll={false}
+          zoomOnPinch={false}
+          elementsSelectable={true}
+          onInit={setReactFlowInstance}
+          zoomOnDoubleClick={false}
+          panOnScroll
+          selectionOnDrag
+          panOnDrag={[1, 2]}
+          selectionMode={SelectionMode.Partial}
+          defaultViewport={defaultViewport}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onEdgeClick={(e, f) => { /* handle edge click */ }}
+          onNodeClick={(e, f) => handleNodeClick(e, f)}
+        >
+          <Controls showInteractive={false} position="bottom-left" />
+          <Background gap={100} color="rgb(243 244 246)" size={3} variant={BackgroundVariant.Lines} />
+          <Panel position="top-left">
+            <button onClick={() => setIsModalOpen(true)}>Add Empty Node</button>
+          </Panel>
+        </ReactFlow>
       </div>
+      {openSidebar && currentSideData.id && <SideBar currentSideData={currentSideData} />}
+      <SelectNodeModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}>
+        <NodeSelectTab stepActionHandle={stepActionHandle} />
+      </SelectNodeModal>
     </div>
   );
 };

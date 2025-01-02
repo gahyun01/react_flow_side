@@ -1,34 +1,44 @@
 import React from "react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { toJSON } from '../../flowbuilder/Utils'; // 'toJSON' 함수 import
+import { useNavigate } from "react-router-dom";
+import { toJSON } from '../../flowbuilder/Utils';
 
 const Navbar = ({ jsonElements }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="w-full h-[75px] px-6 flex justify-between items-center bg-white border border-zinc-900 border-opacity-20">
-      <div className="h-6 justify-start items-center gap-[17px] inline-flex">
-        <div className="w-6 h-6">
-          <ArrowLeftIcon className="h-5 w-5 text-black" aria-hidden="true" />
+    <div className="flex flex-col w-full h-screen bg-gray-100">
+      {/* 상단 Navbar */}
+      <div className="w-full h-[75px] px-6 flex justify-between items-center bg-white border border-zinc-900 border-opacity-20">
+        <div
+          className="h-6 flex items-center gap-4 cursor-pointer"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeftIcon className="h-6 w-6 text-black" aria-hidden="true" />
+          <p className="text-black text-base font-semibold">Voice Builder</p>
         </div>
-        <p className="text-black text-base font-semibold">Voice Builder</p>
+        <div className="flex gap-2">
+          <button
+            className="rounded-lg py-2.5 px-6 bg-blue-800 text-white font-medium shadow-md hover:bg-blue-700"
+            onClick={() => toJSON(jsonElements)}
+          >
+            Extract JSON
+          </button>
+          <button className="rounded-lg py-2.5 px-6 bg-green-600 text-white font-medium shadow-md hover:bg-green-500">
+            Execute
+          </button>
+        </div>
       </div>
-      <div className="flex">
-        <button
-          className={
-            "rounded-lg py-2.5 px-10 text-sm font-medium rounded-l-lg leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 bg-blue-800 shadow text-white"
-          }
-          onClick={() => toJSON(jsonElements)} // 'toJSON' 함수 호출
+
+      {/* 메인 컨텐츠 영역 */}
+      <div className="flex-1 p-6">
+        {/* Flowbuilder와 같은 메인 컴포넌트 렌더링 */}
+        <div
+          className="w-full h-full bg-white rounded-lg shadow-md border border-gray-300"
+          id="flowbuilder-container"
         >
-          Extract JSON
-        </button>
-      </div>
-      <div className="flex">
-        <button
-          className={
-            "rounded-lg py-2.5 px-10 text-sm font-medium rounded-l-lg leading-5 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 bg-blue-800 shadow text-white"
-          }
-        >
-          Execute
-        </button>
+          {/* Flowbuilder 컴포넌트를 여기에 넣으세요 */}
+        </div>
       </div>
     </div>
   );
