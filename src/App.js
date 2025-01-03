@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ReactFlowProvider } from "reactflow"; // ReactFlowProvider import
 import { Flowbuilder } from "./flowbuilder/Flowbuilder"; // Flowbuilder를 import
 import Navbar from "./components/Navbar"; // Navbar 컴포넌트 import
-import './styles/globals.css';
-import './styles/styles.css';
 
 function App() {
   return (
