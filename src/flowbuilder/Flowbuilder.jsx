@@ -231,7 +231,10 @@ const Flowbuilder = () => {
           onNodeClick={(e, f) => handleNodeClick(e, f)}
         >
           <Controls showInteractive={false} position="bottom-left" />
+
+          {/* 격자무늬 배경 */}
           <Background gap={100} color="rgb(243 244 246)" size={3} variant={BackgroundVariant.Lines} />
+          
           <Panel position="top-left">
             <button onClick={() => setIsModalOpen(true)}>Add Empty Node</button>
           </Panel>
